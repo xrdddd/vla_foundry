@@ -1,6 +1,6 @@
 # LBM Pipeline
 
-This guide walks through the end-to-end process for LBM (Learned Behavior Models): preprocessing Spartan data, training a diffusion policy, and finetuning from pretrained weights.
+This guide walks through the end-to-end process for LBM (Large Behavior Models): preprocessing Spartan data, training a diffusion policy, and finetuning from pretrained weights.
 
 ## Preprocessing
 
