@@ -61,6 +61,10 @@ def main():
     """
     # Parse config.
     cfg = draccus.parse(config_class=TrainExperimentParams)
+    
+    # config check
+    assert cfg.data.img_num_tokens == (cfg.model.vit.img_size // cfg.model.vit.patch_size) ** 2, "parameter img_num_tokens is expected to be equal to the patches count."
+    
     if cfg.resolve_configs:
         # Resolve configs for debugging. Program stops here if the flag is received.
         if is_master(cfg):
