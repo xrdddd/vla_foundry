@@ -62,8 +62,8 @@ def main():
     # Parse config.
     cfg = draccus.parse(config_class=TrainExperimentParams)
     
-    # config check
-    assert cfg.data.img_num_tokens == (cfg.model.vit.img_size // cfg.model.vit.patch_size) ** 2, "parameter img_num_tokens is expected to be equal to the patches count."
+    # check config
+    check_cfg(cfg)
     
     if cfg.resolve_configs:
         # Resolve configs for debugging. Program stops here if the flag is received.
@@ -392,6 +392,9 @@ def main():
     if cfg.distributed.use_distributed and torch.distributed.is_initialized():
         torch.distributed.destroy_process_group()
 
-
+def check_cfg(cfg : TrainExperimentParams):
+    assert cfg.data.img_num_tokens == (cfg.model.vit.img_size // cfg.model.vit.patch_size) ** 2, "parameter img_num_tokens is expected to be equal to the patches count."
+    # other like warning also can go here
+    
 if __name__ == "__main__":
     main()
