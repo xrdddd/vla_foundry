@@ -393,7 +393,8 @@ def main():
         torch.distributed.destroy_process_group()
 
 def check_cfg(cfg : TrainExperimentParams):
-    assert cfg.data.img_num_tokens == (cfg.model.vit.img_size // cfg.model.vit.patch_size) ** 2, "parameter img_num_tokens is expected to be equal to the patches count."
+    if cfg.model.type == "vlm":
+        assert cfg.data.img_num_tokens == (cfg.model.vit.img_size // cfg.model.vit.patch_size) ** 2, "parameter img_num_tokens is expected to be equal to the patches count."
     # other like warning also can go here
     
 if __name__ == "__main__":
