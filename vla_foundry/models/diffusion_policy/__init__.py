@@ -57,11 +57,11 @@ def create_vlm_foundry_backbone(model_params: ModelParams, load_pretrained: bool
                     experiment_dir = staging
             except Exception:
                 pass
-    if experiment_dir is None:
-        raise ValueError(
-            "vlm_foundry_backbone requires vlm_experiment_dir or resume_from_checkpoint to locate config_model.yaml"
-        )
-    vlm_params = load_params_from_yaml(VLMParams, os.path.join(experiment_dir, "config_model.yaml"))
+    # if experiment_dir is None:
+    #     raise ValueError(
+    #         "vlm_foundry_backbone requires vlm_experiment_dir or resume_from_checkpoint to locate config_model.yaml"
+    #     )
+    vlm_params = load_params_from_yaml(VLMParams, '/teamspace/studios/this_studio/vla_foundry/vla_foundry/config_presets/models/vlm_100_dummy_pretrained.yaml')
 
     vlm = _create_model(vlm_params, load_pretrained=False)
 
@@ -77,7 +77,8 @@ def create_diffusion_policy(model_params: ModelParams, load_pretrained: bool = T
     from vla_foundry.models.registry import create_model
     from vla_foundry.models.vision_language_backbones import get_vision_language_backbone
 
-    vision_language_backbone = get_vision_language_backbone(model_params.vision_language_backbone, load_pretrained)
+    vision_language_backbone = get_vision_language_backbone(model_params.vision_language_backbone, False)
+    # get_vision_language_backbone(model_params.vision_language_backbone, load_pretrained)
     transformer = create_model(model_params.transformer, load_pretrained)
     noise_scheduler = create_noise_scheduler(model_params)
     return DiffusionPolicy(model_params, vision_language_backbone, transformer, noise_scheduler)
