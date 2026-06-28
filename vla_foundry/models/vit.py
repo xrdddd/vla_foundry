@@ -60,7 +60,7 @@ class ViTMultiHeadAttention(nn.Module):
         self.out_proj = nn.Linear(self.embd_dim, self.embd_dim, bias=True)
 
         num_patches = (model_params.img_size // model_params.patch_size) ** 2 # assuming img_size can be divided by patch_size
-        self.pos_embed = RotaryWithCast(self.embd_dim, num_patches)
+        self.pos_embed = RotaryWithCast(self.head_dim, num_patches)
         
         # Dropout layers
         self.attn_dropout = nn.Dropout(self.dropout)
