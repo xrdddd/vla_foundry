@@ -61,7 +61,6 @@ def main():
     """
     # Parse config.
     cfg = draccus.parse(config_class=TrainExperimentParams)
-    
     if cfg.resolve_configs:
         # Resolve configs for debugging. Program stops here if the flag is received.
         if is_master(cfg):
@@ -389,6 +388,6 @@ def main():
     if cfg.distributed.use_distributed and torch.distributed.is_initialized():
         torch.distributed.destroy_process_group()
 
-    
+
 if __name__ == "__main__":
     main()
