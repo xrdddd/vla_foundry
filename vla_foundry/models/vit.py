@@ -59,9 +59,11 @@ class ViTMultiHeadAttention(nn.Module):
         self.qkv_proj = nn.Linear(self.embd_dim, 3 * self.embd_dim, bias=True)
         self.out_proj = nn.Linear(self.embd_dim, self.embd_dim, bias=True)
 
-        num_patches = (model_params.img_size // model_params.patch_size) ** 2 # assuming img_size can be divided by patch_size
+        num_patches = (
+            model_params.img_size // model_params.patch_size
+        ) ** 2  # assuming img_size can be divided by patch_size
         self.pos_embed = RotaryWithCast(self.head_dim, num_patches)
-        
+
         # Dropout layers
         self.attn_dropout = nn.Dropout(self.dropout)
         self.resid_dropout = nn.Dropout(self.dropout)
@@ -77,8 +79,8 @@ class ViTMultiHeadAttention(nn.Module):
         v = v.view(B, T, self.n_heads, self.head_dim).transpose(1, 2)  # (B, n_heads, T, head_dim)
 
         # use rotary embedding
-        q, k, v = self.pos_embed(q, k, v, offset=0) # assuming no kv cache for now
-        
+        q, k, v = self.pos_embed(q, k, v, offset=0)  # assuming no kv cache for now
+
         y = torch.nn.functional.scaled_dot_product_attention(
             q,
             k,
