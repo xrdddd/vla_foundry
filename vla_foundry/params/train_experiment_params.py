@@ -165,7 +165,7 @@ class TrainExperimentParams(BaseParams):
         # Commenting out for now.
         # if self.distributed.fsdp and not self.distributed.use_distributed:
         #     raise ValueError(f"--fsdp can only be specified in distributed mode.")
-        
+
         if self.model.type == "vlm":
             img_tok_warning = "parameter img_num_tokens is expected to be equal to the patches count divided by square of projector_pixel_shuffle_factor."
             assert self.data.img_num_tokens == utils.compute_num_image_tokens(self.model.vit), img_tok_warning
